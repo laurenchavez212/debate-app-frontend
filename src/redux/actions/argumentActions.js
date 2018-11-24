@@ -11,13 +11,13 @@ import {
   REMOVE_ARGUMENT_FAILED
 } from "./types";
 
-export const getArguments = () => dispatch => {
+export const getArguments = (id) => dispatch => {
     dispatch({
         type: FETCHING_ARGUMENTS
     });
 
   axios
-    .get() // Insert EC2 instance or Proxy
+    .get(`/v1/topics/${ id }`) // Insert EC2 instance or Proxy
     .then(result =>
       dispatch({
             type: FETCH_ARGUMENTS_SUCCESS,

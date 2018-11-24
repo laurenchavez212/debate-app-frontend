@@ -16,11 +16,10 @@ class TopicList extends Component {
         console.log('this.props in ml', this.props.topics)
         if (this.props.topics) {
             return <div className="TopicsContainer">
-                <Row>
-                  {this.props.topics.map(topic => (
-                    <TopicItems key={topic.id} topic={topic} />
+                
+                  {this.props.topics.map(topic => ( 
+                        <Link to={`/v1/topics/${topic.id}`}> <TopicItems key={topic.id} topic={topic} /></Link>
                   ))}
-                </Row>
               </div>;
         } else {
             return <div>Loading...</div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import './App.css';
 import { connect } from 'react-redux';
-import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 
 
@@ -18,8 +17,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path='/' component={LandingPage} />
-          <Route path='/home' component={Home} />
+          <Route path='/' component={Home} />
         </Switch>
       </div>
     );

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "../App.css";
 import TopNav from "./TopNav";
 import BottomNav from "./BottomNav";
-import TopicList from "./topics/TopicList";
+import Topics from "./topics/Topics"
 
 
 class Home extends Component {
@@ -13,7 +13,7 @@ class Home extends Component {
             <TopNav />
 
             <div>
-                <TopicList />
+                <Topics />
             </div>
 
             <BottomNav />
