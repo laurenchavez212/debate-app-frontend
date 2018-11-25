@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { Col } from "reactstrap";
+// import React, { Component } from "react";
+// import { Col } from "reactstrap";
 
-class ArgumentItems extends Component {
-    constructor(props) {
-        super(props);
-    }
+// class ArgumentItems extends Component {
+//     constructor(props) {
+//         super(props);
+//     }
 
-    render() {
-        return (
-            <div>
-                <Col>
-                        <p>{this.props.argument.content}</p>
-                </Col>
-            </div>
-        );
-    }
-}
+//     render() {
+//         return (
+//             <div>
+//                 <Col>
+//                         <p>{this.props.argument.content}</p>
+//                 </Col>
+//             </div>
+//         );
+//     }
+// }
 
-export default ArgumentItems;
+// export default ArgumentItems;

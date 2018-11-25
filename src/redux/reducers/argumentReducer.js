@@ -14,8 +14,6 @@ const initialState = [];
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCHING_ARGUMENTS:
-            return state;
 
         case FETCH_ARGUMENTS_SUCCESS:
             return action.payload;
@@ -23,16 +21,10 @@ export default (state = initialState, action) => {
         case FETCH_ARGUMENTS_FAILED:
             return state;
 
-        case ADDING_ARGUMENT:
-            return state;
-
         case ADD_ARGUMENT_SUCCESS:
             return [...state, action.payload];
 
         case ADD_ARGUMENT_FAILED:
-            return state;
-
-        case REMOVING_ARGUMENT:
             return state;
 
         case REMOVE_ARGUMENT_SUCCESS:

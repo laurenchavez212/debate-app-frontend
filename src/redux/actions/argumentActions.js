@@ -11,22 +11,23 @@ import {
   REMOVE_ARGUMENT_FAILED
 } from "./types";
 
-export const getArguments = (id) => dispatch => {
-    dispatch({
-        type: FETCHING_ARGUMENTS
-    });
+export const getArguments = id => dispatch => {
+  dispatch({
+    type: FETCHING_ARGUMENTS
+  });
 
   axios
-    .get(`/v1/topics/${ id }`) // Insert EC2 instance or Proxy
+    .get(`/v1/topics/${id}`) // Insert EC2 instance or Proxy
+    console.log("fetching arguments", result)
     .then(result =>
       dispatch({
-            type: FETCH_ARGUMENTS_SUCCESS,
+        type: FETCH_ARGUMENTS_SUCCESS,
         payload: result.data
       })
     )
     .catch(err =>
       dispatch({
-            type: FETCH_ARGUMENTS_FAILED,
+        type: FETCH_ARGUMENTS_FAILED,
         payload: err
       })
     );
@@ -34,20 +35,20 @@ export const getArguments = (id) => dispatch => {
 
 export const addArgument = () => dispatch => {
   dispatch({
-      type: ADDING_ARGUMENT
+    type: ADDING_ARGUMENT
   });
 
   axios
     .post()
     .then(result =>
       dispatch({
-            type: ADD_ARGUMENT_SUCCESS,
+        type: ADD_ARGUMENT_SUCCESS,
         payload: result.data
       })
     )
     .catch(err =>
       dispatch({
-            type: ADD_ARGUMENT_FAILED,
+        type: ADD_ARGUMENT_FAILED,
         payload: err
       })
     );
@@ -55,7 +56,7 @@ export const addArgument = () => dispatch => {
 
 export const removeArgument = () => dispatch => {
   dispatch({
-      type: REMOVING_ARGUMENT
+    type: REMOVING_ARGUMENT
   });
 
   axios
@@ -68,9 +69,8 @@ export const removeArgument = () => dispatch => {
     )
     .catch(err =>
       dispatch({
-            type: REMOVE_ARGUMENT_FAILED,
+        type: REMOVE_ARGUMENT_FAILED,
         payload: err
       })
     );
 };
-

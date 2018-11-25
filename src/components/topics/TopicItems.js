@@ -10,13 +10,9 @@ class TopicItems extends Component {
   render() {
     return (
       <div>
-        <Col>
-          <a href={`v1/topic/{this.props.topic.id}`}>
-          <h3>{this.props.topic.title}</h3>
+          <h1>{this.props.topic.title}</h1>
             <p>{this.props.topic.description}</p>
-            <ArgumentList />
-          </a>
-        </Col>
+            {/* <ArgumentList /> */}
       </div>
     );
   }

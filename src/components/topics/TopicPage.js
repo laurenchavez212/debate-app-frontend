@@ -1,27 +1,49 @@
-import React from 'react';
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-} from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { deleteMeeting } from "../actions/meetingActions";
+import React, { Component } from 'react'
+import { getTopic, removeTopic } from "../../redux/actions/topicActions";
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-const Meeting = ({ meeting, deleteMeeting }) => {
-    return (
-        <div className="meeting-card">
-            <Card>
-                <CardImg top width="100%" src={meeting.imgUrl} alt="Card image cap" />
-                <CardBody>
-                    <CardTitle>{meeting.title}</CardTitle>
-                    <CardSubtitle>Presented By: <Link to={`/employee/${meeting.presenter.id}`}>{meeting.presenter.name}</Link></CardSubtitle>
-                    <hr />
-                    <CardText>{meeting.about}</CardText>
-                    <Link to={`/meeting/${meeting.id}`}><Button className="li"><a>More Info</a></Button></Link> {localStorage.getItem('userId') == meeting.presenter.id && <Button onClick={() => deleteMeeting(meeting.id)} color="danger" className="li"><a>Delete</a></Button>}
-                </CardBody>
-            </Card>
-        </div>
-    );
+class TopicPage extends Component {
+    componentDidMount() {
+        console.log("this is the topic", this.props.topic)
+        if (!this.props.topics) {
+            const { id } = this.props.match.params.id;
+            this.props.getTopic(id)
+        }
+    }
+
+    onDeleteClick() {
+        const { id } = this.props.match.params;
+        this.props.removeTopic(id, () => {
+            this.props.history.push('/')
+        });
+    }
+
+    render() {
+        const { topic } = this.props;
+        if (!topic) {
+            return <div>
+                <Link to="/">Back to Index</Link> <br/>
+                Loading...
+              </div>;
+        }
+        return (
+            <div>
+                <Link to="/">Back to Index</Link>
+
+                <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick.bind(this)}>Delete Topic</button>
+
+                <h3>Title: {topic.title}</h3>
+                <h3>Desc: {topic.description}</h3>
+            </div>
+        )
+    }
+}
+const mapStateToProps = ({ topics }, ownProps) => {
+    console.log("my topic", topics[ownProps.match.params.id]);
+  return {
+      topic: topics[ownProps.match.params.id]
+  };
 };
 
-export default connect(null, { deleteMeeting })(Meeting);
+export default connect(mapStateToProps, { getTopic, removeTopic})(TopicPage);

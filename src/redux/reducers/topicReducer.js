@@ -1,14 +1,16 @@
+import _ from "lodash";
 import {
     FETCH_TOPICS_FAILED,
     FETCH_TOPICS_SUCCESS,
     ADD_TOPIC_FAILED,
     ADD_TOPIC_SUCCESS,
     ADDING_TOPIC,
+    FETCH_TOPIC_SUCCESS,
+    FETCH_TOPIC_FAILED,
     REMOVE_TOPIC_FAILED,
     REMOVE_TOPIC_SUCCESS,
     REMOVING_TOPIC
 } from "../actions/types";
-
 const initialState = [];
 
 export default (state = initialState, action) => {
@@ -16,7 +18,7 @@ export default (state = initialState, action) => {
 
         case FETCH_TOPICS_SUCCESS:
             console.log("reducer here", action.payload)
-            return action.payload;
+            return _.mapKeys(action.payload.data, "id");
 
         case FETCH_TOPICS_FAILED:
             return state;
@@ -28,6 +30,12 @@ export default (state = initialState, action) => {
             return [...state, action.payload];
 
         case ADD_TOPIC_FAILED:
+            return state;
+        
+        case FETCH_TOPIC_SUCCESS:
+            return {...state, [action.payload.data.id]: action.payload.data}
+
+        case FETCH_TOPIC_FAILED:
             return state;
 
         case REMOVING_TOPIC:
