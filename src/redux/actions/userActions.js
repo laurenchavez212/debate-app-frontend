@@ -13,6 +13,7 @@ export const userLogin = (user) => dispatch => {
     return axios.post('/v1/sessions', user)
         .then((data) => {
             // console.log("user data here",data);
+            console.log(data)
             dispatch({
                 type: LOGIN_USER_SUCCESS,
                 payload: data.data

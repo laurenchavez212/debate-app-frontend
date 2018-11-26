@@ -7,7 +7,10 @@ import TopNav from "./components/TopNav";
 import BottomNav from "./components/BottomNav";
 import NewTopicForm from "./components/topics/NewTopicForm";
 import TopicPage from "./components/topics/TopicPage";
+
 import LoginPage from "./components/login/LoginPage";
+
+import {userLogin} from './redux/actions/userActions';
 
 class App extends Component {
   componentDidMount() {
@@ -15,10 +18,7 @@ class App extends Component {
       window.location.pathname !== "/" &&
       window.location.pathname !== "/register" &&
       !this.props.token
-    ) {
-      // console.log(this.props.token);
-      // window.location.href = '/';
-    }
+    ) {}
   }
 
   render() {
@@ -34,8 +34,17 @@ class App extends Component {
       </div>;
   }
 }
-const mapStateToProps = ({ userReducer, errors }) => ({
-  token: userReducer.token,
-  errors
+const mapStateToProps = ({ userReducer }) => ({
+  token: userReducer.token
 });
-export default withRouter(connect(mapStateToProps)(withRouter(App)));
+
+const mapDispatchToProps = {
+  userLogin
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withRouter(App))
+);

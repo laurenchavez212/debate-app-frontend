@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {
     FETCH_TOPICS_FAILED,
     FETCH_TOPICS_SUCCESS,
@@ -17,8 +16,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case FETCH_TOPICS_SUCCESS:
-            console.log("reducer here", action.payload)
-            return _.mapKeys(action.payload.data, "id");
+            return [...state, ...action.payload.data]
 
         case FETCH_TOPICS_FAILED:
             return state;
@@ -27,6 +25,7 @@ export default (state = initialState, action) => {
             return state;
 
         case ADD_TOPIC_SUCCESS:
+            console.log(action.payload)
             return [...state, action.payload];
 
         case ADD_TOPIC_FAILED:

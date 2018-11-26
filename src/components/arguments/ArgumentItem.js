@@ -1,20 +1,37 @@
-// import React, { Component } from "react";
-// import { Col } from "reactstrap";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { removeArgument} from "../../redux/actions/argumentActions"
 
-// class ArgumentItems extends Component {
-//     constructor(props) {
-//         super(props);
-//     }
+class ArgumentItems extends Component {
 
-//     render() {
-//         return (
-//             <div>
-//                 <Col>
-//                         <p>{this.props.argument.content}</p>
-//                 </Col>
-//             </div>
-//         );
-//     }
-// }
+  onDeleteClick() {
+    const { id } = this.props.argument.id;
+    this.props.removeArgument(id);
+  }
 
-// export default ArgumentItems;
+    render() {
+        return <li>
+          <p>{this.props.argument.content}</p>
+          <button>Thumbs Up</button>
+          <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick.bind(this)}>
+            Delete
+        </button>
+          </li>;
+           
+          
+    }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      removeArgument
+    },
+    dispatch
+  );
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ArgumentItems);

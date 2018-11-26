@@ -2,7 +2,6 @@ import axios from "../../axios";
 import {
   FETCH_TOPICS_SUCCESS,
   FETCH_TOPICS_FAILED,
-  ADDING_TOPIC,
   ADD_TOPIC_SUCCESS,
   ADD_TOPIC_FAILED,
   FETCH_TOPIC_SUCCESS,
@@ -14,7 +13,12 @@ import {
 
 export const getTopics = () => dispatch => {
   axios
-    .get("/v1/topics")
+    .get("/v1/topics", {
+      headers: {
+        "X-User-Token": localStorage.getItem("X-User-Token"),
+        "X-User-Email": localStorage.getItem("X-User-Email")
+      }
+    })
     .then(result =>
       dispatch({
         type: FETCH_TOPICS_SUCCESS,
@@ -30,31 +34,36 @@ export const getTopics = () => dispatch => {
 };
 
 export const addTopic = (values, callback) => dispatch => {
-  dispatch({
-    type: ADDING_TOPIC
-  });
-
+  //   dispatch({
+  //     type: ADDING_TOPIC
+  //   });
+  console.log(values);
   axios
-    .post("/v1/topics/", values)
-    .then(() => callback())
+    .post("/v1/topics/", values, {
+      headers: {
+        "X-User-Token": localStorage.getItem("X-User-Token"),
+        "X-User-Email": localStorage.getItem("X-User-Email")
+      }
+    })
     .then(result =>
-      dispatch({
-        type: ADD_TOPIC_SUCCESS,
-        payload: result.data
-      })
-    )
-    .catch(err => dispatch({ type: ADD_TOPIC_FAILED, payload: err }));
+        dispatch({
+            type: ADD_TOPIC_SUCCESS,
+            payload: result.data
+        })
+        )
+        .catch(err => dispatch({ type: ADD_TOPIC_FAILED, payload: err }))
+        .then(() => callback())
+    
 };
 
-export const getTopic = (id) => dispatch => {
+export const getTopic = id => dispatch => {
   axios
       .get(`/v1/topics/${id}`)
-      .then(result =>
+    .then(result =>
       dispatch({
         type: FETCH_TOPIC_SUCCESS,
         payload: result.data
       })
-      
     )
     .catch(err =>
       dispatch({
@@ -70,7 +79,12 @@ export const removeTopic = (id, callback) => dispatch => {
   });
 
   axios
-    .delete(`/v1/topics/${id}`)
+    .delete(`/v1/topics/${id}`, {
+      headers: {
+        "X-User-Token": localStorage.getItem("X-User-Token"),
+        "X-User-Email": localStorage.getItem("X-User-Email")
+      }
+    })
     .then(() => {
       callback();
     })
