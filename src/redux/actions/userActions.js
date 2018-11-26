@@ -9,7 +9,7 @@ export const userAction = () => dispatch => {
 }
 
 export const userLogin = (user) => dispatch => {
-
+    console.log(user)
     return axios.post('/v1/sessions', user)
         .then((data) => {
             // console.log("user data here",data);

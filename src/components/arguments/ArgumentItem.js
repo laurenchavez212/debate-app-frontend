@@ -12,11 +12,14 @@ class ArgumentItems extends Component {
 
     render() {
         return <li>
-          <p>{this.props.argument.content}</p>
-          <button>Thumbs Up</button>
-          <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick.bind(this)}>
-            Delete
-        </button>
+            <p>{this.props.argument.content}</p>
+            <a href={this.props.argument.link}>
+              {this.props.argument.link}
+            </a>
+            <button>Thumbs Up</button>
+            <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick.bind(this)}>
+              Delete
+            </button>
           </li>;
            
           

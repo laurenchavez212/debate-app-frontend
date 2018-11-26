@@ -3,8 +3,19 @@ import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addTopic } from "../../redux/actions/topicActions";
+import Modal from "react-awesome-modal";
 
 class NewTopicForm extends Component {
+  state = {
+    visible: this.props.modalState
+  };
+
+  modal() {
+    this.setState({
+      visible: !this.state.visible
+    });
+  }
+
   renderField(field) {
     const {
       meta: { touched, error }
@@ -26,28 +37,47 @@ class NewTopicForm extends Component {
   }
 
   onSubmit(values) {
-      this.props.addTopic(values, () => {
-        this.props.history.push("/");
+    // this.props.modalState = ;
+    this.props.addTopic(values);
+    this.setState({
+      visible: !this.state.visible
     });
+    this.setState({});
   }
 
   render() {
     const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field placeholder="Title" name="title" component={this.renderField} />
-        <Field
-          placeholder="Description"
-          name="description"
-          component={this.renderField}
-        />
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-        <Link to="/" className="btn btn-danger">
-          Cancel
-        </Link>
-      </form>
+    return (<div>
+      <button onClick={() => this.modal()}>Add a Topic</button>
+      <Modal
+        className="editModal"
+        visible={this.state.visible}
+        effect="fadeInRight"
+        width="400"
+        height="270"
+        onClickAway={() => this.modal()}
+      >
+        <h3>New Topic</h3>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <Field
+            placeholder="Title"
+            name="title"
+            component={this.renderField}
+          />
+          <Field
+            placeholder="Description"
+            name="description"
+            component={this.renderField}
+          />
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+          <Link to="/" className="btn btn-danger">
+            Cancel
+          </Link>
+        </form>
+      </Modal>
+    </div>
     );
   }
 }

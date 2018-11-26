@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
 
         case ADD_TOPIC_SUCCESS:
             console.log(action.payload)
-            return [...state, action.payload];
+            return [...state, action.payload.data.user];
 
         case ADD_TOPIC_FAILED:
             return state;

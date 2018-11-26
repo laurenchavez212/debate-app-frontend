@@ -33,7 +33,7 @@ export const getTopics = () => dispatch => {
     );
 };
 
-export const addTopic = (values, callback) => dispatch => {
+export const addTopic = (values) => dispatch => {
   //   dispatch({
   //     type: ADDING_TOPIC
   //   });
@@ -52,8 +52,7 @@ export const addTopic = (values, callback) => dispatch => {
         })
         )
         .catch(err => dispatch({ type: ADD_TOPIC_FAILED, payload: err }))
-        .then(() => callback())
-    
+
 };
 
 export const getTopic = id => dispatch => {
