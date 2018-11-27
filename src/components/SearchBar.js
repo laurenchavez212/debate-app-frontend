@@ -3,9 +3,6 @@ import { Input } from 'reactstrap'
 
 class SearchBar extends Component {
 
-    searchCameras() {
-        console.log('searchTopics: ', this.state.topics);
-    }
 
     render() {
         return <div>

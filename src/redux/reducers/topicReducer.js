@@ -14,39 +14,44 @@ const initialState = [];
 
 export default (state = initialState, action) => {
     switch (action.type) {
+      case FETCH_TOPICS_SUCCESS:
+        // var newArr = _.sortBy(arr, 'count', function (n) {
+        //     return Math.sin(n);
+        // });
 
-        case FETCH_TOPICS_SUCCESS:
-            return [...state, ...action.payload.data]
+        // sort by topics.arguments.length
+        return [...state, ...action.payload.data];
 
-        case FETCH_TOPICS_FAILED:
-            return state;
+      case FETCH_TOPICS_FAILED:
+        return state;
 
-        case ADDING_TOPIC:
-            return state;
+      case ADDING_TOPIC:
+        return state;
 
-        case ADD_TOPIC_SUCCESS:
-            console.log(action.payload)
-            return [...state, action.payload.data.user];
+      case ADD_TOPIC_SUCCESS:
+        console.log(action.payload);
+        return [...state, action.payload.data.user];
 
-        case ADD_TOPIC_FAILED:
-            return state;
-        
-        case FETCH_TOPIC_SUCCESS:
-            return {...state, [action.payload.data.id]: action.payload.data}
+      case ADD_TOPIC_FAILED:
+        return state;
 
-        case FETCH_TOPIC_FAILED:
-            return state;
+      case FETCH_TOPIC_SUCCESS:
+        return [action.payload.topic];
 
-        case REMOVING_TOPIC:
-            return state;
+      case FETCH_TOPIC_FAILED:
+        return state;
 
-        case REMOVE_TOPIC_SUCCESS:
-            return state.map(topic => topic.id !== action.payload.id);
+      case REMOVING_TOPIC:
+        return state;
 
-        case REMOVE_TOPIC_FAILED:
-            return state;
+      case REMOVE_TOPIC_SUCCESS:
+        console.log(action.payload);
+        return [];
 
-        default:
-            return state;
+      case REMOVE_TOPIC_FAILED:
+        return state;
+
+      default:
+        return state;
     }
 }

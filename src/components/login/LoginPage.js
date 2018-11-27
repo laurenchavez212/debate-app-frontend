@@ -22,10 +22,6 @@ class Login extends Component {
     e.preventDefault();
     this.modal();
       this.props.userLogin(this.state.user)
-          .then(() => {
-            //   this.props.history.push('/')
-              window.location.href = '/';
-      })
   }
 
   updateFormField(e) {

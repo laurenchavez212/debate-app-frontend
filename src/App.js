@@ -14,13 +14,7 @@ import Profile from "./components/Profile";
 import {userLogin} from './redux/actions/userActions';
 
 class App extends Component {
-  componentDidMount() {
-    if (
-      window.location.pathname !== "/" &&
-      window.location.pathname !== "/register" &&
-      !this.props.token
-    ) {}
-  }
+
 
   render() {
     return <div>
@@ -36,8 +30,8 @@ class App extends Component {
       </div>;
   }
 }
-const mapStateToProps = ({ userReducer }) => ({
-  token: userReducer.token
+const mapStateToProps = ({ current_user }) => ({
+  token: current_user.token
 });
 
 const mapDispatchToProps = {

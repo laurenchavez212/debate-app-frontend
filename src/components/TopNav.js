@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand, Nav, NavItem, Modal } from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem } from "reactstrap";
 import "../App.css";
 import LoginPage from "./login/LoginPage";
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class TopNav extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class TopNav extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
+  
 
   toggle() {
     this.setState({
@@ -22,46 +23,50 @@ class TopNav extends Component {
   }
 
   logout() {
-    localStorage.removeItem("X-User-Token");
-    localStorage.removeItem("X-User-Email");
+    localStorage.clear();
     window.location.href = "/";
   }
 
   render() {
     let isLoggedIn;
-    if (localStorage.getItem("X-User-Token") && 
-      localStorage.getItem("X-User-Email") 
+    if (
+      localStorage.getItem("X-User-Token")
     ) {
       isLoggedIn = true;
     } else {
       isLoggedIn = false;
     }
-    return <div>
+    console.log(isLoggedIn)
+    return (
+      <div>
         {/* Navbar begins */}
         <Navbar color="light" light expand="md">
           <NavbarBrand href="/">Debate App</NavbarBrand>
           <Nav className="ml-auto" navbar>
-            <Link to={`/profile/`}>
-              <NavItem>Profile</NavItem>
-            </Link>
-            {!isLoggedIn ?
-                <LoginPage /> : <NavItem onClick={this.logout.bind(this)}>
-                Logout
-              </NavItem>}
+            
+            {!isLoggedIn ? (
+              <LoginPage />
+            ) : (
+                <Link to={`/profile/`}>
+                  <NavItem>Profile</NavItem>
+                </Link>
+                
+              <NavItem onClick={this.logout.bind(this)}>Logout</NavItem>
+            )}
+
           </Nav>
         </Navbar>
         {/* Navbar ends */}
-      </div>;
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("state in mstp", state);
-  return {
-    // user: state.topics
-  };
+  return { current_user: state.current_user };
 };
 
 export default connect(
-  mapStateToProps, null
+  mapStateToProps,
+  null
 )(TopNav);

@@ -2,11 +2,12 @@ import { combineReducers } from "redux";
 import userReducer from "./userReducer";
 import topicReducer from "./topicReducer";
 import argumentReducer from "./argumentReducer";
-import { reducer as formReducer } from 'redux-form'
+import voteReducer from "./voteReducer";
 
 export default combineReducers({
-  userReducer,
+  current_user: userReducer,
   topics: topicReducer,
   arguments: argumentReducer,
-  form: formReducer
+  votes: voteReducer
+
 });

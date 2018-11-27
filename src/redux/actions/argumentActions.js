@@ -30,26 +30,26 @@ export const getArguments = id => dispatch => {
     );
 };
 
-export const addArgument = () => dispatch => {
-  dispatch({
-    type: ADDING_ARGUMENT
-  });
+export const addArgument = (argument) => dispatch => {
+         dispatch({ type: ADDING_ARGUMENT });
 
-  axios
-    .post()
-    .then(result =>
-      dispatch({
-        type: ADD_ARGUMENT_SUCCESS,
-        payload: result.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: ADD_ARGUMENT_FAILED,
-        payload: err
-      })
-    );
-};
+         axios
+           .post("/v1/arguments", argument, {
+             headers: {
+               "X-User-Token": localStorage.getItem("X-User-Token"),
+               "X-User-Email": localStorage.getItem("X-User-Email")
+             }
+           })
+           .then(result =>
+             dispatch({
+               type: ADD_ARGUMENT_SUCCESS,
+               payload: result.data
+              })
+              )
+           .catch(err =>
+             dispatch({ type: ADD_ARGUMENT_FAILED, payload: err })
+           );
+       };
 
 export const removeArgument = (id) => dispatch => {
   dispatch({
@@ -63,11 +63,11 @@ export const removeArgument = (id) => dispatch => {
         "X-User-Email": localStorage.getItem("X-User-Email")
       }
     })
-    .then(result =>
+    .then(result =>{
       dispatch({
         type: REMOVE_ARGUMENT_SUCCESS,
-        payload: result.data
-      })
+        payload: id
+      })}
     )
     .catch(err => dispatch({ type: REMOVE_ARGUMENT_FAILED, payload: err }));
 };

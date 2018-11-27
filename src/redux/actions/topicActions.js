@@ -13,12 +13,7 @@ import {
 
 export const getTopics = () => dispatch => {
   axios
-    .get("/v1/topics", {
-      headers: {
-        "X-User-Token": localStorage.getItem("X-User-Token"),
-        "X-User-Email": localStorage.getItem("X-User-Email")
-      }
-    })
+    .get("/v1/topics")
     .then(result =>
       dispatch({
         type: FETCH_TOPICS_SUCCESS,
@@ -90,7 +85,7 @@ export const removeTopic = (id, callback) => dispatch => {
     .then(result =>
       dispatch({
         type: REMOVE_TOPIC_SUCCESS,
-        payload: result.data
+        payload: id
       })
     )
     .catch(err => dispatch({ type: REMOVE_TOPIC_FAILED, payload: err }));

@@ -1,108 +1,104 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button, Modal, ModalHeader } from "reactstrap";
 import ArgumentItem from "./ArgumentItem";
-import { getArguments } from "../../redux/actions/argumentActions";
-import { addArgument } from "../../redux/actions/argumentActions";
+import { Form, Input, Button } from "reactstrap";
+import { getArguments, addArgument } from "../../redux/actions/argumentActions";
+import { bindActionCreators } from "redux";
+import Modal from "react-awesome-modal";
 
-class ArgumentList extends Component {
+class ProArgumentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // topic_id: this.props.match.params.id,
-      user_id: "",
+      topic_id: this.props.id,
+      user_id: this.props.current_user.id,
       content: "",
       link: "",
       stance: true,
-      modal: false
+      visible: false
     };
-    this.toggle = this.toggle.bind(this);
   }
 
-  toggle() {
+  modal() {
     this.setState({
-      modal: !this.state.modal
+      visible: !this.state.visible
     });
   }
+
   addNewArgument = e => {
-    alert("Your Argument Had Been Added!");
     e.preventDefault();
+    console.log(this.state)
     this.props.addArgument(this.state, this.props.history);
   };
 
   componentDidMount() {
     if (!this.props.arguments) {
-      this.props.getArguments(this.props.match.params.id);
+      this.props.getArguments(this.props.id);
     }
   }
 
   renderArguments() {
     return this.props.arguments.map(argItem => {
       if (argItem.stance) {
-        console.log(argItem);
         return <ArgumentItem key={argItem.id} argument={argItem} />;
       }
     });
   }
 
-  addNewArgument = e => {
-    alert("Your Argument Had Been Added!");
-    e.preventDefault();
-    this.props.addArgument(this.state, this.props.history);
-  };
-
   render() {
-    return (
-      <div>
-        <button onClick={this.toggle.bind(this)}>Add Arg</button>
-        {/* ADD ARGUMENT */}
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className="myModal"
-        >
-          <ModalHeader>Pro</ModalHeader>
-          <Form onSubmit={this.addNewArgument}>
-            <Input
-              onChange={e =>
-                this.setState({
-                  content: e.target.value
-                })
-              }
-              placeholder="Add your argument content here"
-              bsSize="lg"
-            />
-            <Input
-              onChange={e =>
-                this.setState({
-                  link: e.target.value
-                })
-              }
-              placeholder="Supporting Links"
-              bsSize="lg"
-            />
-            <Button className="" type="submit" color="primary">
-              Add New
+    let isLoggedIn;
+    if (localStorage.getItem("X-User-Token")) {
+      isLoggedIn = true;
+    } else {
+      isLoggedIn = false;
+    }
+    return <div>
+      {isLoggedIn ? <button onClick={() => this.modal()}>
+        Add Arg
+          </button> : <div>hi</div>}
+      {/* ADD ARGUMENT */}
+      <Modal
+        className="editModal"
+        visible={this.state.visible}
+        effect="fadeInRight"
+        width="400"
+        height="270"
+        onClickAway={() => this.modal()}
+      >
+        <h1>Pro</h1>
+        <Form onSubmit={this.addNewArgument}>
+          <Input onChange={e => this.setState({
+            content: e.target.value
+          })} placeholder="Add your argument content here" bsSize="lg" />
+          <Input onChange={e => this.setState({
+            link: e.target.value
+          })} placeholder="Supporting Links" bsSize="lg" />
+          <Button className="" type="submit" color="primary">
+            Add New
             </Button>
-          </Form>
-        </Modal>
-        {/* END ADD ARGUMENT */}
-        <ul>{this.renderArguments()}</ul>
-      </div>
-    );
+        </Form>
+      </Modal>
+      {/* END ADD ARGUMENT */}
+      <ul>{this.renderArguments()}</ul>
+    </div>;
   }
 }
 
 const mapStateToProps = state => ({
-  arguments: state.arguments.arguments
+  arguments: state.arguments,
+  current_user: state.current_user
 });
 
-const mapDispatchToProps = {
-  getArguments,
-  addArgument
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getArguments,
+      addArgument
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ArgumentList);
+)(ProArgumentList);
