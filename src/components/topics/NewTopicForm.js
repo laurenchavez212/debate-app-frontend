@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addTopic, getTopic } from "../../redux/actions/topicActions";
 import Modal from "react-awesome-modal";
 import { bindActionCreators } from "redux";
 import { Form, Input, Button } from "reactstrap";
+import "../../App.css";
 
 class NewTopicForm extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class NewTopicForm extends Component {
     return <div>
         {isLoggedIn ? <button onClick={() => this.modal()}>
             Add a Topic
-          </button> : <div>hi</div>}
+          </button> : <div></div>}
 
         <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
           <h3>New Topic</h3>

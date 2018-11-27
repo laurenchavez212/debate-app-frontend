@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { getTopics } from "../../redux/actions/topicActions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import "../../App.css";
+import { Col } from "reactstrap"
 
 class TopicList extends Component {
   state = {
@@ -11,7 +13,6 @@ class TopicList extends Component {
 
   componentDidMount() {
     this.props.getTopics();
-    console.log(this.state.searchInputs);
   }
 
   isSubsequence(queryStr, targetStr) {
@@ -30,30 +31,29 @@ class TopicList extends Component {
   renderTopics() {
     return this.props.topics.map(topic => {
       if (this.isSubsequence(this.props.term, topic.title)) {
-        return <Link to={`/topics/${topic.id}`} key={topic.id}>
-            <li className="list-group-item">
+        return <Col><Link to={`/topics/${topic.id}`} key={topic.id}>
+            <li className="topic-list-item">
               <h1>{topic.title}</h1>
-              {/* <p>
+              <p>
                 {topic.description.length > 5
                   ? topic.description.substr(0, 9) + "..."
                   : topic.description}
-              </p> */}
-            <p>{topic.description}</p>
+              </p>
             </li>
-          </Link>;
+        </Link>
+        </Col>
       }
     });
   }
 
   render() {
-    console.log(this.props.topics);
 
     if (!this.props.topics) {
       return (<div>Loading...</div>)
     } else {
       return (
         <React.Fragment>
-          <ul>{this.renderTopics()}</ul>
+          {this.renderTopics()}
         </React.Fragment>
       );
     }
@@ -63,7 +63,6 @@ class TopicList extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state in mstp", state);
   return {
     topics: state.topics
   };

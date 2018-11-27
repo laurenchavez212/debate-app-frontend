@@ -14,8 +14,7 @@ export const getArguments = id => dispatch => {
   // dispatch({
   //   type: FETCHING_ARGUMENTS
   // });
-  axios.get(`/v1/topics/${id}`) // Insert EC2 instance or Proxy
-    // console.log("fetching arguments", result)
+  axios.get(`/v1/topics/${id}`)
     .then((response) => {
       dispatch({
         type: FETCH_ARGUMENTS_SUCCESS,

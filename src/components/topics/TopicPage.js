@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { getArguments } from "../../redux/actions/argumentActions";
 import { removeTopic, getTopic } from "../../redux/actions/topicActions";
 import { Col, Row } from "reactstrap";
+import "../../App.css";
 
 class TopicPage extends Component {
   componentDidMount() {
@@ -20,17 +21,14 @@ class TopicPage extends Component {
     });
   }
 
-  componentDidUpdate(prev) {
-    console.log(this.props);
-  }
 
     render() {
         const { topics } = this.props;
         const topic = topics[0];
-        console.log(topic)
+      
 
         let allowDel = topic && topic.user_id === this.props.current_user.user.id;
-        console.log(topic)
+
 
     if (!topic) {
       return (

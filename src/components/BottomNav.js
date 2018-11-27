@@ -1,22 +1,32 @@
 import React, {Component} from "react";
 import {
-    Navbar,
     Nav,
     NavItem
 } from "reactstrap";
 import "../App.css";
+import {NavLink, Navbar, NavbarBrand} from 'reactstrap'
 
 export default class BottomNav extends Component {
 
     render() {
-        return <div>
-            <Navbar color="light" light expand="md">
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                       Bottom Nav Bar
-            </NavItem>
-                </Nav>
+        return <div className="bottom-nav">
+            <Navbar>
+              <NavbarBrand>Balance</NavbarBrand>
+              <Nav vertical className=" ml-auto" navbar>
+                <NavLink href="#">Link</NavLink>
+                <NavItem>
+                  <NavLink href="#">Link</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="#">Another Link</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink disabled href="#">
+                    Disabled Link
+                  </NavLink>
+                </NavItem>
+              </Nav>
             </Navbar>
-        </div>;
+          </div>;
     }
 }

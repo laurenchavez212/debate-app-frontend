@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { userLogin } from "../../redux/actions/userActions";
 import { NavItem } from "reactstrap";
 import Modal from "react-awesome-modal";
+import "../../App.css";
 
 class Login extends Component {
   state = {
@@ -59,9 +60,6 @@ class Login extends Component {
             />
             <input type="submit" />
           </form>
-          <Link to="/register">
-            Dont have an account with us? Click here to register
-          </Link>
         </Modal>
       </div>
     );

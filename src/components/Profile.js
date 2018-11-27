@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Watching from "./Watching";
 import { connect } from "react-redux";
 import { Row, Col } from "reactstrap";
 import { getTopics } from "../redux/actions/topicActions";
 import { getArguments } from "../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import "../App.css";
 
 class Profile extends Component {
 
@@ -17,18 +17,28 @@ class Profile extends Component {
 
   renderTopics() {
     return this.props.topics.map(topic => {
-      console.log(topic);
       if (topic.user_id === this.props.current_user.user.id) {
         return <Link to={`/topics/${topic.id}`} key={topic.id}>
           <h3>{topic.title}</h3>
         </Link>
       }
   })
-}
+  }
+  
+  renderArguments() {
+    return this.props.arguments.map(argument => {
+      if (argument.user_id === this.props.current_user.user.id) {
+        return <Link to={`/topics/${argument.topic_id}`} key={argument.id}>
+          <h3>{argument.content}</h3>
+          </Link>;
+      }
+    })
+  }
 
 
   render() {
-    console.log(this.props.current_user)
+    console.log(this.props.arguments)
+    console.log(this.props.current_user.user.id);
     let image = this.props.current_user.user.image;
     let user_name = this.props.current_user.user.user_name;
     return <div className="profileContainer">
@@ -44,6 +54,7 @@ class Profile extends Component {
           </Col>
           <Col>
             <h3>Your Arguments</h3>
+            <ul>{this.renderArguments()}</ul>
           </Col>
         </Row>
       </div>;

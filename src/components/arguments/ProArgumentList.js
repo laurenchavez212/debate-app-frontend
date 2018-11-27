@@ -5,6 +5,7 @@ import { Form, Input, Button } from "reactstrap";
 import { getArguments, addArgument } from "../../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
 import Modal from "react-awesome-modal";
+import "../../App.css";
 
 class ProArgumentList extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class ProArgumentList extends Component {
 
   addNewArgument = e => {
     e.preventDefault();
-    console.log(this.state)
     this.props.addArgument(this.state, this.props.history);
   };
 
@@ -55,7 +55,7 @@ class ProArgumentList extends Component {
     return <div>
       {isLoggedIn ? <button onClick={() => this.modal()}>
         Add Arg
-          </button> : <div>hi</div>}
+          </button> : <div></div>}
       {/* ADD ARGUMENT */}
       <Modal
         className="editModal"

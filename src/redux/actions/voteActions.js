@@ -55,7 +55,6 @@ export const deleteVote = (id) => {
         axios
             .delete(`/v1/votes/${id}`)
             .then(response => {
-                console.log(response.data)
                 dispatch({
                   type: DELETE_VOTE_SUCCESS,
                   payload: id

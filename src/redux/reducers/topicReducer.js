@@ -29,7 +29,6 @@ export default (state = initialState, action) => {
         return state;
 
       case ADD_TOPIC_SUCCESS:
-        console.log(action.payload);
         return [...state, action.payload.data.user];
 
       case ADD_TOPIC_FAILED:
@@ -45,7 +44,6 @@ export default (state = initialState, action) => {
         return state;
 
       case REMOVE_TOPIC_SUCCESS:
-        console.log(action.payload);
         return [];
 
       case REMOVE_TOPIC_FAILED:

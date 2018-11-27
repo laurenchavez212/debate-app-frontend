@@ -1,0 +1,45 @@
+.homeContainer {
+  text-align: center;
+}
+
+.homeContainer h1 {
+    text-align: left;
+    margin-top: 2.5%;
+}
+
+.topic-list-item {
+  height: 20vh;
+  width: 20vw;
+  background-color: white;
+  margin-bottom: 2%;
+  opacity: 0.8;
+}
+
+.topic-list-item h1 {
+  background-color: red;
+}
+
+.top-nav {
+  height: 9vh;
+}
+
+.top-nav-item {
+  padding-right: 2%;
+}
+
+.bottom-nav {
+  background-color: red;
+  padding-right: 5%;
+}
+
+.top-banner {
+  height: 40vh;
+  margin-bottom: 2%;
+  border-radius: 2px;
+}
+
+.top-banner-header{
+    color: lightgrey;
+    font-size: 4em;
+}
+

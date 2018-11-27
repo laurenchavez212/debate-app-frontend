@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { removeArgument } from "../../redux/actions/argumentActions";
 import { addVote } from "../../redux/actions/voteActions";
 import { fetchVotes } from "../../redux/actions/voteActions";
+import "../../App.css"
 
 class ArgumentItems extends Component {
   state = {
@@ -33,7 +34,17 @@ class ArgumentItems extends Component {
       allowDel = false;
     }
 
-    console.log(this.props);
+    if (this.props.argument.votes.length) {
+      return this.props.argument.votes.length;
+    }
+
+    const { votes } = this.props
+    
+    if(!votes){
+      return this.props.argument.votes.length
+    }
+
+  
     return (
       <li>
         <p>{this.props.argument.content}</p>

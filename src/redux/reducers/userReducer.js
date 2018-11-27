@@ -11,7 +11,6 @@ export default (state = initialState, action) => {
             };
 
         case LOGIN_USER_SUCCESS:
-            console.log(action.payload.data.user);
             const token = action.payload.data.user.authentication_token;
             const email = action.payload.data.user.email;
             localStorage.setItem("X-User-Token", token);

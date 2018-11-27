@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand, Nav, NavItem } from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import "../App.css";
 import LoginPage from "./login/LoginPage";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import "../App.css";
+
 
 class TopNav extends Component {
   constructor(props) {
@@ -36,29 +38,25 @@ class TopNav extends Component {
     } else {
       isLoggedIn = false;
     }
-    console.log(isLoggedIn)
-    return (
-      <div>
+    
+    return <div>
         {/* Navbar begins */}
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Debate App</NavbarBrand>
+        <Navbar className="top-nav" color="light" light expand="md">
+          <NavbarBrand href="/">Balance</NavbarBrand>
           <Nav className="ml-auto" navbar>
+          {!isLoggedIn ? <LoginPage /> : <React.Fragment>
             
-            {!isLoggedIn ? (
-              <LoginPage />
-            ) : (
                 <Link to={`/profile/`}>
-                  <NavItem>Profile</NavItem>
-                </Link>
-                
-              <NavItem onClick={this.logout.bind(this)}>Logout</NavItem>
-            )}
-
+                  <NavLink className="top-nav-item">Profile</NavLink>
+            </Link>
+                <NavLink className="top-nav-item" onClick={this.logout.bind(this)}>
+                  Logout
+                </NavLink>
+              </React.Fragment>}
           </Nav>
         </Navbar>
         {/* Navbar ends */}
-      </div>
-    );
+      </div>;
   }
 }
 

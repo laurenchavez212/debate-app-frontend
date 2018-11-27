@@ -11,7 +11,6 @@ let initialState = [];
 export default (state = initialState, action) => {
   switch (action.type) {
       case FETCH_VOTES_SUCCESS:
-          console.log(action.payload)
           return action.payload.arguments;
       
       case FETCH_VOTES_FAILED:
@@ -24,7 +23,6 @@ export default (state = initialState, action) => {
           return state;
       
       case DELETE_VOTE_SUCCESS:
-      console.log(action.payload);
           return state.filter(vote => vote.id !== action.payload);
 
     default:

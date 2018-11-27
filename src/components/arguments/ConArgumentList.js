@@ -5,6 +5,7 @@ import { Form, Input, Button } from "reactstrap";
 import { getArguments, addArgument } from "../../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
 import Modal from "react-awesome-modal";
+import "../../App.css";
 
 class ConArgumentList extends Component {
   constructor(props) {
@@ -35,7 +36,6 @@ class ConArgumentList extends Component {
     if (!this.props.arguments) {
       this.props.getArguments(this.props.id);
     }
-    console.log(this.props.current_user.id);
   }
 
   renderArguments() {
@@ -58,7 +58,7 @@ class ConArgumentList extends Component {
     return <div>
         {isLoggedIn ? <button onClick={() => this.modal()}>
             Add Arg
-          </button> : <div>hi</div>}
+          </button> : <div></div>}
 
         {/* ADD ARGUMENT */}
         <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
@@ -66,7 +66,7 @@ class ConArgumentList extends Component {
           <Form onSubmit={this.addNewArgument}>
             <Input onChange={e => this.setState({
                   content: e.target.value
-                })} placeholder="Add your argument content here" bsSize="lg" />
+                })} placeholder="Add your argument content here" bsSize="lg" autoFocus />
             <Input onChange={e => this.setState({
                   link: e.target.value
                 })} placeholder="Supporting Links" bsSize="lg" />
