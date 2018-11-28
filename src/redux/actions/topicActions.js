@@ -12,7 +12,7 @@ import {
 } from "./types";
 
 export const getTopics = () => dispatch => {
-  axios
+  return axios
     .get("/v1/topics")
     .then(result =>
       dispatch({
@@ -67,7 +67,7 @@ export const getTopic = id => dispatch => {
     );
 };
 
-export const removeTopic = (id, callback) => dispatch => {
+export const removeTopic = (id) => dispatch => {
   dispatch({
     type: REMOVING_TOPIC
   });
@@ -78,9 +78,6 @@ export const removeTopic = (id, callback) => dispatch => {
         "X-User-Token": localStorage.getItem("X-User-Token"),
         "X-User-Email": localStorage.getItem("X-User-Email")
       }
-    })
-    .then(() => {
-      callback();
     })
     .then(result =>
       dispatch({

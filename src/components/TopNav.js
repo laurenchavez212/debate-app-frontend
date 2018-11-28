@@ -5,6 +5,8 @@ import LoginPage from "./login/LoginPage";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "../App.css";
+import { FaUser } from "react-icons/fa";
+
 
 
 class TopNav extends Component {
@@ -42,13 +44,17 @@ class TopNav extends Component {
     return <div>
         {/* Navbar begins */}
         <Navbar className="top-nav" color="light" light expand="md">
-          <NavbarBrand href="/">Balance</NavbarBrand>
+          <NavbarBrand href="/">
+            <img className="top-nav-brand" src="/Balance.jpg" />
+          </NavbarBrand>
+          <NavLink >
+            <h3 className="top-nav-brand-2">Balance</h3>
+          </NavLink>
           <Nav className="ml-auto" navbar>
-          {!isLoggedIn ? <LoginPage /> : <React.Fragment>
-            
+          {!isLoggedIn ? <React.Fragment><FaUser /><LoginPage /></React.Fragment> : <React.Fragment>
                 <Link to={`/profile/`}>
-                  <NavLink className="top-nav-item">Profile</NavLink>
-            </Link>
+              <NavLink className="top-nav-item"><FaUser />Profile</NavLink>
+                </Link>
                 <NavLink className="top-nav-item" onClick={this.logout.bind(this)}>
                   Logout
                 </NavLink>

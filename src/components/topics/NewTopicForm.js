@@ -5,6 +5,7 @@ import Modal from "react-awesome-modal";
 import { bindActionCreators } from "redux";
 import { Form, Input, Button } from "reactstrap";
 import "../../App.css";
+import { FaPlus } from "react-icons/fa";
 
 class NewTopicForm extends Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class NewTopicForm extends Component {
     this.state = {
       title: "",
       description: "",
-      user_id: this.props.current_user.id,
       image: "",
+      user_id: this.props.current_user.id,
       visible: false
     };
   }
@@ -38,9 +39,16 @@ class NewTopicForm extends Component {
       isLoggedIn = false;
     }
     return <div>
-        {isLoggedIn ? <button onClick={() => this.modal()}>
-            Add a Topic
-          </button> : <div></div>}
+        {isLoggedIn ? <div className="add-topic-container">
+            <h5>Don't See What You'd Like to Discuss? Add a Topic! 
+              <button className="add-button" onClick={() => this.modal()}>
+           <FaPlus/>
+            </button>
+            </h5>
+        
+          </div> : <div>
+            <h4>Login To Add Your Own Topic!</h4>
+          </div>}
 
         <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
           <h3>New Topic</h3>

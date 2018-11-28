@@ -4,26 +4,30 @@ import {
     NavItem
 } from "reactstrap";
 import "../App.css";
-import {NavLink, Navbar, NavbarBrand} from 'reactstrap'
+import {Navbar, NavbarBrand} from 'reactstrap'
 
 export default class BottomNav extends Component {
 
     render() {
         return <div className="bottom-nav">
             <Navbar>
-              <NavbarBrand>Balance</NavbarBrand>
+            <NavbarBrand>&copy; Balance 2018</NavbarBrand>
+            <hr/>
               <Nav vertical className=" ml-auto" navbar>
-                <NavLink href="#">Link</NavLink>
                 <NavItem>
-                  <NavLink href="#">Link</NavLink>
+                  Careers 
                 </NavItem>
+              <br/>
                 <NavItem>
-                  <NavLink href="#">Another Link</NavLink>
+                    Privacy Policy
                 </NavItem>
+              <br />
                 <NavItem>
-                  <NavLink disabled href="#">
-                    Disabled Link
-                  </NavLink>
+                    Terms of Service
+                </NavItem>
+              <br />
+                <NavItem>
+                    Contact Us
                 </NavItem>
               </Nav>
             </Navbar>

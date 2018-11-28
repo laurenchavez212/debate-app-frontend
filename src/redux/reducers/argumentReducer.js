@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
             return state;
 
         case REMOVE_ARGUMENT_SUCCESS:
-            return [];
+            return state.filter(item => item.id !== action.payload);
 
         case REMOVE_ARGUMENT_FAILED:
             return state;

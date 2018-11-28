@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col } from "reactstrap";
 import { getTopics } from "../redux/actions/topicActions";
-import { getArguments } from "../redux/actions/argumentActions";
+import { getArgumentsForUser } from "../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom"
 import "../App.css";
@@ -10,7 +10,7 @@ import "../App.css";
 class Profile extends Component {
 
   componentDidMount() {
-    this.props.getArguments();
+    this.props.getArgumentsForUser();
     this.props.getTopics();
   }
 
@@ -37,12 +37,9 @@ class Profile extends Component {
 
 
   render() {
-    console.log(this.props.arguments)
-    console.log(this.props.current_user.user.id);
     let image = this.props.current_user.user.image;
     let user_name = this.props.current_user.user.user_name;
     return <div className="profileContainer">
-        <button className="btn">Edit my Profile Image</button>
         <Row>
           <img src={image} alt="profile image" />
           <h1>{user_name}</h1>
@@ -50,11 +47,13 @@ class Profile extends Component {
         <Row>
           <Col>
             <h4>Your Topics</h4>
-            <ul>{this.renderTopics()}</ul>
+          <ul>{this.renderTopics()}</ul>
+          {/* created on this date */}
           </Col>
           <Col>
             <h3>Your Arguments</h3>
-            <ul>{this.renderArguments()}</ul>
+          <ul>{this.renderArguments()}</ul>
+          {/* created on this date */}
           </Col>
         </Row>
       </div>;
@@ -70,7 +69,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getArguments,
+      getArgumentsForUser,
       getTopics
     },
     dispatch

@@ -29,6 +29,32 @@ export const getArguments = id => dispatch => {
     );
 };
 
+
+export const getArgumentsForUser = () => dispatch => {
+         // dispatch({
+         //   type: FETCHING_ARGUMENTS
+         // });
+         axios
+           .get(`/v1/topics/get/by_user`, {
+             headers: {
+               "X-User-Token": localStorage.getItem("X-User-Token"),
+               "X-User-Email": localStorage.getItem("X-User-Email")
+             }
+           })
+           .then(response => {
+             console.log(response);
+             dispatch({
+               type: FETCH_ARGUMENTS_SUCCESS,
+               payload: { arguments: response.data }
+             });
+           })
+           .catch(err =>
+             dispatch({
+               type: FETCH_ARGUMENTS_FAILED,
+               payload: err
+             })
+           );
+       };
 export const addArgument = (argument) => dispatch => {
          dispatch({ type: ADDING_ARGUMENT });
 
@@ -54,6 +80,8 @@ export const removeArgument = (id) => dispatch => {
   dispatch({
     type: REMOVING_ARGUMENT
   });
+
+  console.log("remove", id);
 
   axios
     .delete(`/v1/arguments/${id}`, {

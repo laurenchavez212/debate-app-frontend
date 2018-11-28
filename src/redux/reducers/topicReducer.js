@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         return [action.payload.topic];
 
       case FETCH_TOPIC_FAILED:
-        return state;
+        return [action.payload.data];
 
       case REMOVING_TOPIC:
         return state;

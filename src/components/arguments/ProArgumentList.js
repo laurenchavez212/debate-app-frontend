@@ -6,6 +6,7 @@ import { getArguments, addArgument } from "../../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
 import Modal from "react-awesome-modal";
 import "../../App.css";
+import { FaPlus } from "react-icons/fa";
 
 class ProArgumentList extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class ProArgumentList extends Component {
     return this.props.arguments.map(argItem => {
       if (argItem.stance) {
         return <ArgumentItem key={argItem.id} argument={argItem} />;
-      }
+      } 
     });
   }
 
@@ -53,34 +54,27 @@ class ProArgumentList extends Component {
       isLoggedIn = false;
     }
     return <div>
-      {isLoggedIn ? <button onClick={() => this.modal()}>
-        Add Arg
-          </button> : <div></div>}
-      {/* ADD ARGUMENT */}
-      <Modal
-        className="editModal"
-        visible={this.state.visible}
-        effect="fadeInRight"
-        width="400"
-        height="270"
-        onClickAway={() => this.modal()}
-      >
-        <h1>Pro</h1>
-        <Form onSubmit={this.addNewArgument}>
-          <Input onChange={e => this.setState({
-            content: e.target.value
-          })} placeholder="Add your argument content here" bsSize="lg" />
-          <Input onChange={e => this.setState({
-            link: e.target.value
-          })} placeholder="Supporting Links" bsSize="lg" />
-          <Button className="" type="submit" color="primary">
-            Add New
+        {isLoggedIn ? <button className="add-button" onClick={() => this.modal()}>
+        <FaPlus />
+          </button> : <div />}
+        {/* ADD ARGUMENT */}
+        <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
+          <h1>Pro</h1>
+          <Form onSubmit={this.addNewArgument}>
+            <Input onChange={e => this.setState({
+                  content: e.target.value
+                })} placeholder="Add your argument content here" bsSize="lg" />
+            <Input onChange={e => this.setState({
+                  link: e.target.value
+                })} placeholder="Supporting Links" bsSize="lg" />
+            <Button className="" type="submit" color="primary">
+              Add New
             </Button>
-        </Form>
-      </Modal>
-      {/* END ADD ARGUMENT */}
-      <ul>{this.renderArguments()}</ul>
-    </div>;
+          </Form>
+        </Modal>
+        {/* END ADD ARGUMENT */}
+        <ul>{this.renderArguments()}</ul>
+      </div>;
   }
 }
 

@@ -6,6 +6,7 @@ import { getArguments, addArgument } from "../../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
 import Modal from "react-awesome-modal";
 import "../../App.css";
+import { FaPlus } from "react-icons/fa";
 
 class ConArgumentList extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class ConArgumentList extends Component {
       content: "",
       link: "",
       stance: false,
+      user_name: this.props.current_user.user_name,
       visible: false
     };
   }
@@ -42,7 +44,7 @@ class ConArgumentList extends Component {
     return this.props.arguments.map(argItem => {
       if (!argItem.stance) {
         return <ArgumentItem key={argItem.id} argument={argItem}  />;
-      }
+      };
     });
   }
 
@@ -56,8 +58,8 @@ class ConArgumentList extends Component {
     }
 
     return <div>
-        {isLoggedIn ? <button onClick={() => this.modal()}>
-            Add Arg
+      {isLoggedIn ? <button className="add-button" onClick={() => this.modal()}>
+            <FaPlus/>
           </button> : <div></div>}
 
         {/* ADD ARGUMENT */}

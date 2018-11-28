@@ -5,9 +5,13 @@ import { removeArgument } from "../../redux/actions/argumentActions";
 import { addVote } from "../../redux/actions/voteActions";
 import { fetchVotes } from "../../redux/actions/voteActions";
 import "../../App.css"
+import { FaThumbsUp, FaTrash } from "react-icons/fa";
+import { Card, CardBody, CardText, Col } from "reactstrap"
+
 
 class ArgumentItems extends Component {
   state = {
+    voteCounts: this.props.argument.votes.length,
     argument_id: this.props.argument.id
   };
 
@@ -16,7 +20,11 @@ class ArgumentItems extends Component {
   }
 
   addVote() {
-    this.props.addVote(this.state);
+    console.log(this.state.voteCounts);
+    // this.props.addVote(this.state);
+    this.props.addVote({ argument_id: this.state.argument_id });
+    this.setState({ voteCounts: this.state.voteCounts+1});
+    console.log(this.state.voteCounts);
   }
 
   render() {
@@ -33,43 +41,38 @@ class ArgumentItems extends Component {
     } else {
       allowDel = false;
     }
-
-    if (this.props.argument.votes.length) {
-      return this.props.argument.votes.length;
-    }
-
     const { votes } = this.props
-    
-    if(!votes){
-      return this.props.argument.votes.length
-    }
+    return <li className="argument-cards">
+        <Col sm="7">
+          <Card className="argument-card-content">
+            <CardText>
+              <p>
+                <i>{this.props.argument.user_name}</i>
+              </p>
+              {this.props.argument.content}
+            </CardText>
+            <a href={this.props.argument.link}>
+              {this.props.argument.link}
+            </a>
+            <CardBody className="argument-card-buttons">
+              {isLoggedIn ? <button className="arg-button" onClick={() => this.addVote()}>
+                  <FaThumbsUp />
+                  {this.props.argument.votes ? this.state.voteCounts : 0}
+                </button> : <div />}
 
-  
-    return (
-      <li>
-        <p>{this.props.argument.content}</p>
-        <a href={this.props.argument.link}>{this.props.argument.link}</a>
-
-        {isLoggedIn ? <button onClick={() => this.addVote()}>Thumbs Up</button> : <div>hi</div>}
-        
-        
-
-        {allowDel ? (
-          <button
-            className="btn btn-danger"
-            onClick={() => this.props.removeArgument(this.props.argument.id)}
-          >
-            Delete
-          </button>
-        ) : (
-          <div></div>
-        )}
-
-        <p>VOTES : {this.props.argument.votes.length}</p>
-      </li>
-    );
+              {allowDel ? <button className="arg-button del-button" onClick={() => this.props.removeArgument(this.props.argument.id)}>
+                  <FaTrash />
+                </button> : <div />}
+            </CardBody>
+          </Card>
+        </Col>
+      </li>;
   }
 }
+
+
+  
+
 
 const mapStateToProps = state => ({
   votes: state.votes,

@@ -4,7 +4,7 @@ import { getTopics } from "../../redux/actions/topicActions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../App.css";
-import { Col } from "reactstrap"
+import { Col, Card, CardBody, Row } from "reactstrap";
 
 class TopicList extends Component {
   state = {
@@ -17,6 +17,9 @@ class TopicList extends Component {
 
   isSubsequence(queryStr, targetStr) {
     let targetPtr = 0;
+    queryStr = queryStr.toLowerCase();
+    targetStr = targetStr.toLowerCase();
+
     for (let i = 0; i < queryStr.length; i++) {
       if (targetStr.substr(targetPtr).indexOf(queryStr[i]) >= 0) {
         targetPtr = targetStr.indexOf(queryStr[i]);
@@ -27,39 +30,44 @@ class TopicList extends Component {
     return true;
   }
 
-
   renderTopics() {
     return this.props.topics.map(topic => {
       if (this.isSubsequence(this.props.term, topic.title)) {
-        return <Col><Link to={`/topics/${topic.id}`} key={topic.id}>
-            <li className="topic-list-item">
-              <h1>{topic.title}</h1>
-              <p>
-                {topic.description.length > 5
-                  ? topic.description.substr(0, 9) + "..."
-                  : topic.description}
-              </p>
-            </li>
-        </Link>
-        </Col>
+        return (
+          <Col md="4">
+            <Link to={`/topics/${topic.id}`} key={topic.id}>
+              <Card
+                className="card topic-card"
+                style={{ backgroundImage: `url(${topic.image})` }}
+              >
+                <CardBody>
+                  <div className="topic-list-item">
+                    <div className="topic-list-item-content">
+                      <h1> {topic.title}</h1>
+                      <br/>
+                      <h3>
+                        {topic.description.length > 5
+                          ? topic.description.substr(0, 80) + "..."
+                          : topic.description}
+                      </h3>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </Link>
+          </Col>
+        );
       }
     });
   }
 
   render() {
-
     if (!this.props.topics) {
-      return (<div>Loading...</div>)
+      return <div>Loading...</div>;
     } else {
-      return (
-        <React.Fragment>
-          {this.renderTopics()}
-        </React.Fragment>
-      );
+      return <Row>{this.renderTopics()}</Row>;
     }
   }
-
-  
 }
 
 const mapStateToProps = state => {
