@@ -1,62 +1,87 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Jumbotron, Container, ListGroup, ListGroupItem } from "reactstrap";
 import { getTopics } from "../redux/actions/topicActions";
 import { getArgumentsForUser } from "../redux/actions/argumentActions";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import "../App.css";
+import { FaInstagram, FaFacebookSquare, FaTwitter } from "react-icons/fa";
 
 class Profile extends Component {
-
   componentDidMount() {
     this.props.getArgumentsForUser();
     this.props.getTopics();
   }
 
-
   renderTopics() {
     return this.props.topics.map(topic => {
       if (topic.user_id === this.props.current_user.user.id) {
         return <Link to={`/topics/${topic.id}`} key={topic.id}>
-          <h3>{topic.title}</h3>
-        </Link>
+          <ListGroupItem className="list-group-item">
+              <h3>{topic.title}</h3>
+            </ListGroupItem>
+          </Link>;
       }
-  })
+    });
   }
-  
+
   renderArguments() {
     return this.props.arguments.map(argument => {
       if (argument.user_id === this.props.current_user.user.id) {
         return <Link to={`/topics/${argument.topic_id}`} key={argument.id}>
-          <h3>{argument.content}</h3>
+            <ListGroupItem className="list-group-item">
+              <h3>{argument.content}</h3>
+            </ListGroupItem>
           </Link>;
       }
-    })
+    });
   }
-
 
   render() {
     let image = this.props.current_user.user.image;
     let user_name = this.props.current_user.user.user_name;
-    return <div className="profileContainer">
-        <Row>
-          <img src={image} alt="profile image" />
-          <h1>{user_name}</h1>
-        </Row>
+    return (
+      <div className="profile-container">
+        <Jumbotron fluid>
+          <Container fluid>
+            <div>
+              <img src={image} className="profile-image" alt="profile image" />
+            </div>
+            <h1 className="profile-user-name">
+              <b>@{user_name}</b>
+            </h1>
+            <div className="social-icons">
+              <a href="https://www.facebook.com/">
+                <FaFacebookSquare />
+              </a>
+              <a href="https://twitter.com/">
+                <FaTwitter />
+              </a>
+              <a href="https://www.instagram.com/">
+                <FaInstagram />
+              </a>
+            </div>
+          </Container>
+        </Jumbotron>
         <Row>
           <Col>
-            <h4>Your Topics</h4>
-          <ul>{this.renderTopics()}</ul>
-          {/* created on this date */}
+            <h2>Your Topics</h2>
+            <ListGroup className="list-group">
+              <ul>{this.renderTopics()}</ul>
+            </ListGroup>
+            {/* created on this date */}
           </Col>
           <Col>
-            <h3>Your Arguments</h3>
-          <ul>{this.renderArguments()}</ul>
-          {/* created on this date */}
+            <h2>Your Arguments</h2>
+            <ListGroup className="list-group">
+              <ul>{this.renderArguments()}</ul>
+            </ListGroup>
+            {/* created on this date */}
           </Col>
         </Row>
-      </div>;
+      </div>
+    );
   }
 }
 
@@ -75,4 +100,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

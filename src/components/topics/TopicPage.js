@@ -16,7 +16,7 @@ class TopicPage extends Component {
   }
 
   onDeleteClick() {
-    const id = this.props.match.params;
+    const id = this.props.match.params.id;
     this.props.removeTopic(id, () => {
       this.props.history.push("/");
     });
@@ -37,34 +37,23 @@ class TopicPage extends Component {
       );
     }
     {
-      return (
-        <div className="topic-page" style={{ height: "70vh" }}>
+      return <div className="topic-page">
           {console.log(this.props.topic)}
-            <Card className="single-topic">
-              <CardImg
-                className="card-image"
-                src={topic.image}
-                alt=""
-              />
-                <div>
-                  <div>
-                    <h1> {topic.title}</h1>
-                    <h3>{topic.description}</h3>{" "}
-                    {allowDel ? (
-                      <button
-                        className="del-button del-button-topics"
-                        onClick={() => this.onDeleteClick()}
-                      >
-                        <FaTrash />
-                      </button>
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-                </div>
-            </Card>
+          <Card className="single-topic">
+            <CardImg className="card-image" src={topic.image} alt="" />
+            <div>
+              <div>
+                <h1> {topic.title}</h1>
+                <h3>
+                  {topic.description}
+                </h3> {allowDel ? <button className="del-button del-button-topics" onClick={() => this.onDeleteClick()}>
+                    <FaTrash />
+                  </button> : <div />}
+              </div>
+            </div>
+          </Card>
           <Row className="arguments-container">
-            <Col lg="6">
+            <Col lg="6" className="arguments-list-container">
               <h2>Pro</h2>
               <ProArgumentList id={this.props.match.params.id} />
             </Col>
@@ -73,8 +62,7 @@ class TopicPage extends Component {
               <ConArgumentList id={this.props.match.params.id} />
             </Col>
           </Row>
-        </div>
-      );
+        </div>;
     }
   }
 }

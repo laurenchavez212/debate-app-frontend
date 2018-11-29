@@ -7,7 +7,7 @@
   border: 6px solid grey;
 }
 
-.topics-list-container h2 {
+.topics-list-container h1 {
   text-align: left;
   margin-top: 2.5%;
   margin-left: 5%;
@@ -46,7 +46,7 @@
 }
 
 .top-banner {
-  height: 40vh;
+  height: 37vh;
   margin-bottom: 2%;
   border-radius: 2px;
 }
@@ -141,6 +141,12 @@
   transition: all 0.4s ease 0s;
 }
 
+.del-button-topics{
+  float: right;
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
 .add-topic-button {
   border-radius: 4px;
   line-height: 1.5;
@@ -168,6 +174,7 @@
   -o-animation: fadein 3s; /* Opera */
   background-color: rgb(230, 230, 230);
   padding-top: 1%;
+  min-height: 70vh;
 }
 
 .topic-page h2{
@@ -178,7 +185,11 @@
 
 .arguments-container{
   margin-top: 1%;
-  padding-left: 10%;
+  padding-left: 5%;
+}
+
+.arguments-list-container{
+
 }
 
 .card {
@@ -282,4 +293,42 @@
   to {
     opacity: 1;
   }
+}
+
+.profile-container{
+  min-height: 70vh
+}
+
+.profile-user-name{
+  margin-left: 23%;
+  font-size: 5em;
+  text-shadow: 2px 2px 4px grey;
+}
+
+.profile-image{
+  width: 20vw;
+  border-radius: 50%;
+  margin-left: 2%;
+  float: left;
+  box-shadow: 2px 3px 4px grey;
+}
+
+.social-icons{
+  font-size: 2em;
+  float: right;
+  
+}
+
+.login:hover{
+  cursor: pointer;
+  color:black
+}
+
+.list-group{
+  margin-right: 5;
+  padding-bottom: 5%;
+}
+
+.edit-modal-button {
+  border-radius: 5%
 }

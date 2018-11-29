@@ -7,24 +7,7 @@ import { connect } from "react-redux";
 import "../App.css";
 import { FaUser } from "react-icons/fa";
 
-
-
 class TopNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-
-    this.toggle = this.toggle.bind(this);
-  }
-  
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
 
   logout() {
     localStorage.clear();
@@ -33,27 +16,30 @@ class TopNav extends Component {
 
   render() {
     let isLoggedIn;
-    if (
-      localStorage.getItem("X-User-Token")
-    ) {
+    if (localStorage.getItem("X-User-Token")) {
       isLoggedIn = true;
     } else {
       isLoggedIn = false;
     }
-    
+
     return <div>
         {/* Navbar begins */}
         <Navbar className="top-nav" color="light" light expand="md">
           <NavbarBrand href="/">
             <img className="top-nav-brand" src="/Balance.jpg" />
           </NavbarBrand>
-          <NavLink >
-            <h3 className="top-nav-brand-2">Balance</h3>
+          <NavLink>
+            <h2>Balance</h2>
           </NavLink>
           <Nav className="ml-auto" navbar>
-          {!isLoggedIn ? <React.Fragment><FaUser /><LoginPage /></React.Fragment> : <React.Fragment>
+            {!isLoggedIn ? <React.Fragment>
+                <LoginPage />
+              </React.Fragment> : <React.Fragment>
                 <Link to={`/profile/`}>
-              <NavLink className="top-nav-item"><FaUser />Profile</NavLink>
+                  <NavLink className="top-nav-item">
+                    <FaUser />
+                    Profile
+                  </NavLink>
                 </Link>
                 <NavLink className="top-nav-item" onClick={this.logout.bind(this)}>
                   Logout

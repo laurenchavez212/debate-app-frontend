@@ -11,7 +11,7 @@ export default class BottomNav extends Component {
     render() {
         return <div className="bottom-nav">
             <Navbar>
-            <NavbarBrand>&copy; Balance 2018</NavbarBrand>
+            <NavbarBrand> &copy; Balance 2018</NavbarBrand>
             <hr/>
               <Nav vertical className=" ml-auto" navbar>
                 <NavItem>

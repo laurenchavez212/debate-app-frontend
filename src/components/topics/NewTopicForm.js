@@ -62,7 +62,7 @@ class NewTopicForm extends Component {
             <Input onChange={e => this.setState({
                   image: e.target.value
                 })} placeholder="Supporting Image" bsSize="lg" />
-            <Button className="" type="submit" color="primary">
+            <Button className="edit-modal-button" type="submit" color="primary">
               Add New
             </Button>
           </Form>

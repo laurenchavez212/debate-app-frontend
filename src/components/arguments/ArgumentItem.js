@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { removeArgument } from "../../redux/actions/argumentActions";
-import { addVote } from "../../redux/actions/voteActions";
-import { fetchVotes } from "../../redux/actions/voteActions";
+import { addVote, fetchVotes } from "../../redux/actions/voteActions";
 import "../../App.css"
 import { FaThumbsUp, FaTrash } from "react-icons/fa";
 import { Card, CardBody, CardText, Col } from "reactstrap"
@@ -11,7 +10,7 @@ import { Card, CardBody, CardText, Col } from "reactstrap"
 
 class ArgumentItems extends Component {
   state = {
-    voteCounts: this.props.argument.votes.length,
+    voteCounts: this.props.argument.votes ? this.props.argument.votes.length : 0,
     argument_id: this.props.argument.id
   };
 
@@ -43,12 +42,12 @@ class ArgumentItems extends Component {
     }
     const { votes } = this.props
     return <li className="argument-cards">
-        <Col sm="7">
+        <Col md="10">
           <Card className="argument-card-content">
-            <CardText>
-              <p>
+          <CardText>
+            <p>
                 <i>{this.props.argument.user_name}</i>
-              </p>
+            </p>
               {this.props.argument.content}
             </CardText>
             <a href={this.props.argument.link}>
@@ -58,7 +57,7 @@ class ArgumentItems extends Component {
               {isLoggedIn ? <button className="arg-button" onClick={() => this.addVote()}>
                   <FaThumbsUp />
                   {this.props.argument.votes ? this.state.voteCounts : 0}
-                </button> : <div />}
+            </button> : <div>Votes: {this.props.argument.votes ? this.state.voteCounts : 0}</div>}
 
               {allowDel ? <button className="arg-button del-button" onClick={() => this.props.removeArgument(this.props.argument.id)}>
                   <FaTrash />

@@ -67,7 +67,7 @@ export const getTopic = id => dispatch => {
     );
 };
 
-export const removeTopic = (id) => dispatch => {
+export const removeTopic = (id, callback) => dispatch => {
   dispatch({
     type: REMOVING_TOPIC
   });
@@ -84,6 +84,7 @@ export const removeTopic = (id) => dispatch => {
         type: REMOVE_TOPIC_SUCCESS,
         payload: id
       })
+      .then(callback())
     )
     .catch(err => dispatch({ type: REMOVE_TOPIC_FAILED, payload: err }));
 };

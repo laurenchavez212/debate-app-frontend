@@ -17,7 +17,7 @@ class ConArgumentList extends Component {
       content: "",
       link: "",
       stance: false,
-      user_name: this.props.current_user.user_name,
+      user_name: this.props.current_user.user.user_name,
       visible: false
     };
   }
@@ -43,8 +43,8 @@ class ConArgumentList extends Component {
   renderArguments() {
     return this.props.arguments.map(argItem => {
       if (!argItem.stance) {
-        return <ArgumentItem key={argItem.id} argument={argItem}  />;
-      };
+        return <ArgumentItem key={argItem.id} argument={argItem} />;
+      }
     });
   }
 
@@ -57,21 +57,47 @@ class ConArgumentList extends Component {
       isLoggedIn = false;
     }
 
-    return <div>
-      {isLoggedIn ? <button className="add-button" onClick={() => this.modal()}>
-            <FaPlus/>
-          </button> : <div></div>}
+    return (
+      <div>
+        {isLoggedIn ? (
+          <button className="add-button" onClick={() => this.modal()}>
+            <FaPlus />
+          </button>
+        ) : (
+          <div />
+        )}
 
         {/* ADD ARGUMENT */}
-        <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
+        <Modal
+          className="editModal"
+          visible={this.state.visible}
+          effect="fadeInRight"
+          width="400"
+          height="270"
+          onClickAway={() => this.modal()}
+        >
           <h1>Con</h1>
           <Form onSubmit={this.addNewArgument}>
-            <Input onChange={e => this.setState({
+            <Input
+              type="textarea"
+              onChange={e =>
+                this.setState({
                   content: e.target.value
-                })} placeholder="Add your argument content here" bsSize="lg" autoFocus />
-            <Input onChange={e => this.setState({
+                })
+              }
+              placeholder="Add your argument content here"
+              bsSize="lg"
+              autoFocus
+            />
+            <Input
+              onChange={e =>
+                this.setState({
                   link: e.target.value
-                })} placeholder="Supporting Links" bsSize="lg" />
+                })
+              }
+              placeholder="Supporting Links"
+              bsSize="lg"
+            />
             <Button className="" type="submit" color="primary">
               Add New
             </Button>
@@ -79,7 +105,8 @@ class ConArgumentList extends Component {
         </Modal>
         {/* END ADD ARGUMENT */}
         <ul>{this.renderArguments()}</ul>
-      </div>;
+      </div>
+    );
   }
 }
 

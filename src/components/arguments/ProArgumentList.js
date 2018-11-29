@@ -7,6 +7,8 @@ import { bindActionCreators } from "redux";
 import Modal from "react-awesome-modal";
 import "../../App.css";
 import { FaPlus } from "react-icons/fa";
+import { fetchVotes } from "../../redux/actions/voteActions";
+
 
 class ProArgumentList extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class ProArgumentList extends Component {
       content: "",
       link: "",
       stance: true,
+      user_name: this.props.current_user.user_name,
       visible: false
     };
   }
@@ -30,6 +33,7 @@ class ProArgumentList extends Component {
   addNewArgument = e => {
     e.preventDefault();
     this.props.addArgument(this.state, this.props.history);
+    this.setState({ visible: !this.state.visible });
   };
 
   componentDidMount() {
@@ -39,10 +43,14 @@ class ProArgumentList extends Component {
   }
 
   renderArguments() {
+    // let sortedVotes = this.props.arguments.sort(function (a, b) {
+    //   return a.this.props.votes.length - b.this.props.votes.length;
+    // });
+    // console.log('beer', this.props.arguments)
     return this.props.arguments.map(argItem => {
       if (argItem.stance) {
         return <ArgumentItem key={argItem.id} argument={argItem} />;
-      } 
+      }
     });
   }
 
@@ -53,20 +61,45 @@ class ProArgumentList extends Component {
     } else {
       isLoggedIn = false;
     }
-    return <div>
-        {isLoggedIn ? <button className="add-button" onClick={() => this.modal()}>
-        <FaPlus />
-          </button> : <div />}
+    return (
+      <div>
+        {isLoggedIn ? (
+          <button className="add-button" onClick={() => this.modal()}>
+            <FaPlus />
+          </button>
+        ) : (
+          <div />
+        )}
         {/* ADD ARGUMENT */}
-        <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
+        <Modal
+          className="editModal"
+          visible={this.state.visible}
+          effect="fadeInRight"
+          width="400"
+          height="270"
+          onClickAway={() => this.modal()}
+        >
           <h1>Pro</h1>
           <Form onSubmit={this.addNewArgument}>
-            <Input onChange={e => this.setState({
+            <Input
+              type="textarea"
+              onChange={e =>
+                this.setState({
                   content: e.target.value
-                })} placeholder="Add your argument content here" bsSize="lg" />
-            <Input onChange={e => this.setState({
+                })
+              }
+              placeholder="Add your argument content here"
+              bsSize="lg"
+            />
+            <Input
+              onChange={e =>
+                this.setState({
                   link: e.target.value
-                })} placeholder="Supporting Links" bsSize="lg" />
+                })
+              }
+              placeholder="Supporting Link"
+              bsSize="lg"
+            />
             <Button className="" type="submit" color="primary">
               Add New
             </Button>
@@ -74,20 +107,23 @@ class ProArgumentList extends Component {
         </Modal>
         {/* END ADD ARGUMENT */}
         <ul>{this.renderArguments()}</ul>
-      </div>;
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
   arguments: state.arguments,
-  current_user: state.current_user
+  current_user: state.current_user,
+  votes: state.votes
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getArguments,
-      addArgument
+      addArgument,
+      fetchVotes
     },
     dispatch
   );
