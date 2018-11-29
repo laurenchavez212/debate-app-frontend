@@ -40,13 +40,18 @@ class Login extends Component {
           <FaUser />
           Login
         </NavItem>
-        <Modal className="editModal" visible={this.state.visible} effect="fadeInRight" width="400" height="270" onClickAway={() => this.modal()}>
-          <h1>Login</h1>
-          <form onSubmit={this.submitLogin.bind(this)}>
-            <input type="email" name={"email"} placeholder={"Email"} onChange={this.updateFormField} />
-            <input type="password" name={"password"} placeholder={"Password"} onChange={this.updateFormField} />
-            <input type="submit" />
-          </form>
+
+        <Modal visible={this.state.visible} effect="fadeInUp" width="400" height="270" onClickAway={() => this.modal()}>
+          <div className="login-modal">
+            <h1>Login</h1>
+            <form onSubmit={this.submitLogin.bind(this)}>
+              <input type="email" name={"email"} placeholder={"Email"} onChange={this.updateFormField} />
+              <br />
+              <input type="password" name={"password"} placeholder={"Password"} onChange={this.updateFormField} />
+              <br />
+              <input className="login-submit" type="submit" />
+            </form>
+          </div>
         </Modal>
       </div>;
   }

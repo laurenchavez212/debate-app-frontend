@@ -329,6 +329,29 @@
   padding-bottom: 5%;
 }
 
-.edit-modal-button {
-  border-radius: 5%
+.login-modal{
+  text-align: center;
+}
+.login-modal h1{
+  font-size: 3em;
+}
+
+.login-modal input{
+  width: 80%;
+  border-radius: 2px;
+  margin-top: 4%;
+  box-shadow: 1px 1px 3px grey;
+}
+
+.login-modal button {
+  border-radius: 5%;
+}
+
+.login-submit:hover{
+  background-color: grey;
+  cursor: pointer;
+}
+
+.login-submit{
+  margin-top: 5%;
 }
